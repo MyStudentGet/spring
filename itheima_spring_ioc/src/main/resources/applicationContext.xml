@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+       xmlns:p="http://www.springframework.org/schema/p"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!--            普通实例化方法：prototype :多例的（每次getBean都创建新的对象）singleton：默认值（每次创建都是同一个对象）-->
+        <bean id="userDao" class="com.itheima.dao.impl.UserDaoimpl" scope="prototype"/>
+
+
+<!--        静态工厂实例化：getBeean时直接找StaticFactory类中的getUserDao方法拿到对象-->
+<!--        <bean id="userDao" class="com.itheima.factory.StaticFactory" factory-method="getUserDao"/>-->
+
+<!--        动态工厂实例化：1、创建工厂对象    2、getBean时找工厂对象的某一个方法-->
+<!--        <bean id="factory" class="com.itheima.factory.DynamicFactory" />-->
+<!--        <bean id="userDao" factory-bean="factory" factory-method="getUserDao"/>-->
+
+<!--       依赖注入： 配置Service层：通常用于注解Service类，也就是服务层。-->
+        <bean id="userService" class="com.itheima.service.impl.UserServiceimpl">
+<!--                name属性的值是set方法的方法名（只不过首字母要小写） 对象的引用用ref-->
+<!--              1、通过set方法依赖注入  把容器中的userDao通过set方法注入到userService中-->
+                <property name="userDao" ref="userDao"></property>
+<!--              2、通过构造方法依赖注入  name属性为构造参数名-->
+<!--                <constructor-arg name="userDao" ref="userDao"></constructor-arg>-->
+        </bean>
+<!--                如何使用p命令空间注入（使用属性标签代替<property>）
+                    1、在顶部加上xmlns:p="http://www.springframework.org/schema/p"
+                    2、<bean id="userService" class="com.itheima.service.impl.UserServiceimpl" p:userDao-ref="userDao"/>
+-->
+<!--    bean生命周期  init-method="init"：初始化之前执行的代码  destroy-method="destory"：销毁之前执行的代码-->
+<!--        <bean id="userDao" class="com.itheima.dao.impl.UserDaoimpl" init-method="init" destroy-method="destory"/>-->
+
+<!--        可以在外部导入其他xml模块，此时只需要运行主文件即可-->
+        <import resource="applicationContext-product.xml"/>
+        <import resource="applicationContext-user.xml"/>
+</beans>
