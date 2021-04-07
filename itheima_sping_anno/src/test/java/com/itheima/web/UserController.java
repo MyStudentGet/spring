@@ -6,8 +6,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class UserController {
     public static void main(String[] args) {
-        ApplicationContext app = new ClassPathXmlApplicationContext("applicationContext.xml");
+        ClassPathXmlApplicationContext app = new ClassPathXmlApplicationContext("applicationContext.xml");
         UserService userService = (UserService) app.getBean("userService");
         userService.save();
+        app.close(); // 关闭容器，方便测试Service对象销毁方法
     }
 }
