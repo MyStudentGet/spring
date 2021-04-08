@@ -7,7 +7,7 @@ import org.springframework.cglib.proxy.MethodProxy;
 
 import java.lang.reflect.Method;
 
-// 基于cglib的代理实现
+// 基于cglib的代理实现（目标对象没有接口时使用）
 /*
     一、创建目标对象
     二、获得增强对象（切面类）
@@ -49,7 +49,7 @@ public class ProxyTest {
             }
         });
         //4、创建代理对象
-        //因为是父子关系，所以可以用目标对象去接
+        //因为是父子关系，所以可以用目标对象类型去接
         Target proxy = (Target) enhancer.create();
 
         proxy.save();

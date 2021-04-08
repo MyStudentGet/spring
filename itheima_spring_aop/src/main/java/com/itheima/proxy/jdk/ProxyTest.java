@@ -3,7 +3,7 @@ package com.itheima.proxy.jdk;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-// 基于jdbc的代理实现
+// 基于jdbc的代理实现（目标对象有接口时使用）
 /*
     一、创建目标对象
     二、获得增强对象（切面类）
