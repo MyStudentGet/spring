@@ -24,7 +24,7 @@ public class ProxyTest {
 
 
          // 返回值就是动态生成的代理对象
-        //必须用目标对象的接口对象来接
+        //因为是兄弟关系（与目标类继承同一接口）必须用目标对象的接口对象来接
          TargetInterface proxy = (TargetInterface) Proxy.newProxyInstance(
                 target.getClass().getClassLoader(),//目标对象类加载器（通过它可以得到一个文件的输入流）
                 target.getClass().getInterfaces(),//目标对象相同的接口字节码对象数组
