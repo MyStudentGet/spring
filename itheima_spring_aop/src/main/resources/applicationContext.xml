@@ -8,9 +8,8 @@
                     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
                     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-<!--    加载外部的properties文件-->
-
-
-<!--第七课2分钟-->
+<!--    目标对象-->
+    <bean id="target" class="com.itheima.aop.Target"/>
+<!--    切面对象-->
 
 </beans>
