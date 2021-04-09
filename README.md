@@ -6,7 +6,7 @@
     3、配置织入
       <aop:config>
         抽取切点表达式
-        <aop:pointcut id="切点表达式id" expression="execution(* com.itheima.aop.*.*(..))"/>
+         <aop:pointcut id="切点表达式id" expression="execution(* com.itheima.aop.*.*(..))"/>
         
         声明切面（切面 = 切点+通知（增强））
         <aop:aspect ref = "切面对象">
