@@ -47,8 +47,9 @@ Spring集成Junit步骤（测试容器中的Bean是否注入）
     1）、导入Spring集成Junit的坐标   pom.xml文件中导入坐标
     2）、使用Runwith注解替换原来的运行期  （代码使用Spring提供的内核运行）
         @Runwith(SpringJunit4classRunner.class)
-    3）、使用Context
-    
+    3）、使用ContextConfiguration   指定配置文件或配置类
+        @ContextConfiguration("classpath:文件名.xml")
+        @ContextConfiguration(classpath={SpringCofig})
     
 Spring-ioc（控制反转）
 ====
