@@ -1,4 +1,27 @@
-Spring-Aop
+Spring xml文件的配置
+====
+bean属性
+----
+    scope = "prototype" :每次getBean都是一个新的对象（多例模式）
+    factory-bean : getBean时找指定的bean（动态工厂实例化，getBean时找工厂对象的某一个方法）
+    factory-method : 找某个类中的方法来创建对象（动/静态工厂实例化）
+    init-method : 指定类中初始化方法名称（创建对象前会调用）
+    destroy-method : 指定类中销毁方法名称（要关闭容器对象才会销毁）
+    <property>标签（set方法属性注入）
+        <list>(数组数据)
+        <map>
+    <constructor-arg>（构造方法依赖注入）
+    <import>导入其他的Spring的分文件（其他xml模块文件）
+    
+    
+    
+    
+
+Spring-ioc（控制反转）
+====
+
+
+Spring-Aop（面向切面编程）
 =====
 一、基于xml配置步骤
 ----
