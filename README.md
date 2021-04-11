@@ -41,9 +41,15 @@ Spring注解
     @PropertySource("classpath:文件名.properties")：类注解     加载外部properties文件
     @Import(类名.class)：类注解   加载另一个配置文件模块（当有多个模块要导入时：({a.class,b.class,c.class})(可以接受一个数组)）
     
+    
 Spring集成Junit步骤（测试容器中的Bean是否注入）
 ====
-    1）、导入Spring集成Junit的坐标   
+    1）、导入Spring集成Junit的坐标   pom.xml文件中导入坐标
+    2）、使用Runwith注解替换原来的运行期  （代码使用Spring提供的内核运行）
+        @Runwith(SpringJunit4classRunner.class)
+    3）、使用Context
+    
+    
 Spring-ioc（控制反转）
 ====
 
