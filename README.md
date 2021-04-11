@@ -44,6 +44,8 @@ bean属性
     
 三、Spring集成Junit步骤（测试容器中的Bean是否注入）
 ====
+1、测试步骤
+----
     1）、导入Spring集成Junit的坐标   pom.xml文件中导入坐标
     2）、使用Runwith注解替换原来的运行期  （代码使用Spring提供的内核运行）
         @Runwith(SpringJunit4classRunner.class)
@@ -71,7 +73,7 @@ bean属性
     3、配置织入
       <aop:config>
         抽取切点表达式
-         <aop:pointcut id="切点表达式id" expression="execution(* com.itheima.aop.*.*(..))"/>
+        <aop:pointcut id="切点表达式id" expression="execution(* com.itheima.aop.*.*(..))"/>
         
         声明切面（切面 = 切点+通知（增强））
         <aop:aspect ref = "切面对象">
