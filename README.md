@@ -12,11 +12,38 @@ bean属性
         <map>
     <constructor-arg>（构造方法依赖注入）
     <import>导入其他的Spring的分文件（其他xml模块文件）
-    
-    
-    
-    
 
+Spring注解
+====
+一、实例化bean
+----
+    @Component：使用在类上实例化bean
+    @Controller：使用在web层上，实例化Bean
+    @Service：使用在service层上，实例化Bean
+    @Repository：使用在Dao层上，实例化Bean
+二、依赖注入
+----
+    @Autowired：使用在字段上，依赖注入（根据类型）
+    @Qualifier：结合@Autowired一起使用（根据id进行依赖注入）
+    @Resource：相当于上面两个组合（按名称注入）
+    @Value：注入普通属性（值可以来自.properties文件，不过要先导入该文件（@PropertySource("classpath:名称.properties")））
+三、其他注入
+----
+    @Scope：标志Bean是单例（默认）还是多例（prototype）
+    @PostConstruct：使用在方法上（标注该方法是Bean初始化方法）
+    @preDestroy：标注该方法是Bean的销毁方法（容器关闭Bean才会销毁）
+
+四、新注解（SpringBoot）
+----
+    @Configuration：类注解（标志该类是Spring的核心配置类）
+    @ComponentScan("包名")：类注解    注解扫描（扫描哪个包）
+    @Bean("id名")：方法注解   Spring会将方法的返回值以指定id储存
+    @PropertySource("classpath:文件名.properties")：类注解     加载外部properties文件
+    @Import(类名.class)：类注解   加载另一个配置文件模块（当有多个模块要导入时：({a.class,b.class,c.class})(可以接受一个数组)）
+    
+Spring集成Junit步骤（测试容器中的Bean是否注入）
+====
+    1）、导入Spring集成Junit的坐标   
 Spring-ioc（控制反转）
 ====
 
