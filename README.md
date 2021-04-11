@@ -1,4 +1,4 @@
-Spring xml文件的配置
+一、Spring xml文件的配置
 ====
 bean属性
 ----
@@ -13,27 +13,27 @@ bean属性
     <constructor-arg>（构造方法依赖注入）
     <import>导入其他的Spring的分文件（其他xml模块文件）
 
-Spring注解
+二、Spring注解
 ====
-一、实例化bean
+1、实例化bean
 ----
     @Component：使用在类上实例化bean
     @Controller：使用在web层上，实例化Bean
     @Service：使用在service层上，实例化Bean
     @Repository：使用在Dao层上，实例化Bean
-二、依赖注入
+2、依赖注入
 ----
     @Autowired：使用在字段上，依赖注入（根据类型）
     @Qualifier：结合@Autowired一起使用（根据id进行依赖注入）
     @Resource：相当于上面两个组合（按名称注入）
     @Value：注入普通属性（值可以来自.properties文件，不过要先导入该文件（@PropertySource("classpath:名称.properties")））
-三、其他注入
+3、其他注入
 ----
     @Scope：标志Bean是单例（默认）还是多例（prototype）
     @PostConstruct：使用在方法上（标注该方法是Bean初始化方法）
     @preDestroy：标注该方法是Bean的销毁方法（容器关闭Bean才会销毁）
 
-四、新注解（SpringBoot）
+4、新注解（SpringBoot）
 ----
     @Configuration：类注解（标志该类是Spring的核心配置类）
     @ComponentScan("包名")：类注解    注解扫描（扫描哪个包）
@@ -42,7 +42,7 @@ Spring注解
     @Import(类名.class)：类注解   加载另一个配置文件模块（当有多个模块要导入时：({a.class,b.class,c.class})(可以接受一个数组)）
     
     
-Spring集成Junit步骤（测试容器中的Bean是否注入）
+三、Spring集成Junit步骤（测试容器中的Bean是否注入）
 ====
     1）、导入Spring集成Junit的坐标   pom.xml文件中导入坐标
     2）、使用Runwith注解替换原来的运行期  （代码使用Spring提供的内核运行）
@@ -57,13 +57,13 @@ Spring集成Junit步骤（测试容器中的Bean是否注入）
         @Test
         public void 方法名(){}
     
-Spring-ioc（控制反转） 
+四、Spring-ioc（控制反转） 
 ====
 
 
-Spring-Aop（面向切面编程）
+五、Spring-Aop（面向切面编程）
 =====
-一、基于xml配置步骤
+1、基于xml配置步骤
 ----
     1、配置目标对象
         <bean id="target" class="com.itheima.aop.Target"/>
@@ -77,9 +77,9 @@ Spring-Aop（面向切面编程）
         <aop:aspect ref = "切面对象">
             <aop:通知类型 method = "增强方法（切面对象内的）" pointcut-ref="切点表达式id"/>
         </aop:aspect>
-二、基于注解配置步骤   
+2、基于注解配置步骤   
 ----     
-三、通知类型
+3、通知类型
 ----
     1、前置通知（在方法执行之前）
         <aop:before>
