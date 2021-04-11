@@ -9,7 +9,7 @@ bean属性
     destroy-method : 指定类中销毁方法名称（要关闭容器对象才会销毁）
     <property>标签（set方法属性注入）
         <list>(数组数据)
-        <map>
+        <map>(键值对)
     <constructor-arg>（构造方法依赖注入）
     <import>导入其他的Spring的分文件（其他xml模块文件）
 
