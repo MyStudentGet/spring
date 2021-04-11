@@ -50,8 +50,14 @@ Spring集成Junit步骤（测试容器中的Bean是否注入）
     3）、使用ContextConfiguration   指定配置文件或配置类
         @ContextConfiguration("classpath:文件名.xml")
         @ContextConfiguration(classpath={SpringCofig})
+    4）、使用Autowired注入需要测试的对象（要测试哪个Bean就注入哪个）
+        @Autowired  // 要测试谁就注入谁
+        private UserService userService;
+    5）、创建测试方法进行测试
+        @Test
+        public void 方法名(){}
     
-Spring-ioc（控制反转）
+Spring-ioc（控制反转） 
 ====
 
 
