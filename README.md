@@ -40,6 +40,17 @@ bean属性
     @Bean("id名")：方法注解   Spring会将方法的返回值以指定id储存
     @PropertySource("classpath:文件名.properties")：类注解     加载外部properties文件
     @Import(类名.class)：类注解   加载另一个配置文件模块（当有多个模块要导入时：({a.class,b.class,c.class})(可以接受一个数组)）
+
+5、AOP注解
+----
+    标注当前MyAspect是一个切面类：@Aspect
+    抽取切点表达式：
+        @Pointcut("execution(* com.itheima.anno.*.*(..))")
+    前置增强@Before(切点)：
+    后置增强：@AfterReturning(切点)
+    环绕增强：@Around(切点)
+    异常抛出增强：@AfterThrowing(切点)
+    最终增强：@After（切点）
     
     
 三、Spring集成Junit步骤（测试容器中的Bean是否注入）
@@ -61,8 +72,32 @@ bean属性
     
 四、Spring-ioc（控制反转） 
 ====
+1、各类实例化比较
+----
+    1、普通实例化
+            <bean id="对象名" class="对象的来源" scope="prototype/singleton(单例或多例)"/>
+    
+    2、静态工厂实例化（getBeean时直接找“静态工厂类”中的某一方法拿到对象（静态方法无需创建对象））
+            <bean id="对象名" class="静态工厂" factory-method="某一方法"/>
+    
+    3、动态工厂实例化（1、创建工厂对象    2、getBean时找工厂对象的某一个方法）
+            <bean id="工厂对象名" class="工厂" />
+            <bean id="对象名" factory-bean="工厂对象名" factory-method="某一方法"/>
 
-
+2、各种依赖注入比较
+----
+    1、通过set方法依赖注入  把容器中的userDao通过set方法注入到userService中
+            <property name="userDao" ref="userDao"></property>
+            
+    2、通过构造方法依赖注入  name属性为构造参数名
+            <constructor-arg name="userDao" ref="userDao"></constructor-arg>
+    
+    3、如何使用p命令空间注入（使用属性标签代替<property>）
+             1)、在顶部加上
+                    xmlns:p="http://www.springframework.org/schema/p"
+             2)、直接用p:userDao-ref="userDao"命令代替<property>标签     适用于要注入很多数据时使用
+                    <bean id="userService" class="com.itheima.service.impl.UserServiceimpl" p:userDao-ref="userDao"/>
+    
 五、Spring-Aop（面向切面编程）  
 ===== 
 1、基于xml配置步骤
@@ -84,15 +119,20 @@ bean属性
 3、通知类型
 ----
     1、前置通知（在方法执行之前）
+        @Before
         <aop:before>
     2、后置通知（在方法执行之后）
+        @AfterReturning
         <aop:after-returning>
     3、环绕通知（在方法执行前后都执行）
         定义方法时要加上参数ProceedingJoinPoint对象，并且在前后增强方法中间加上ProceedingJoinPoint对象.proceed()方法（执行目标方法） 
+        @Around
         <aop:around>  
     4、异常抛出通知（目标方法抛出异常才运行）
+        @AferThrowing
         <aop:throwing>
     5、最终通知（无论方法是否有异常都会执行）
+        @After
         <aop:after>    
 4、整体AOP开发步骤
 ----
