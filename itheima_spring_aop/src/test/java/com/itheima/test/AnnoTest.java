@@ -1,6 +1,7 @@
 package com.itheima.test;
 
-import com.itheima.aop.TargetInterface;
+
+import com.itheima.anno.TargetInterface;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

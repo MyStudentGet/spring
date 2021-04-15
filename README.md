@@ -94,4 +94,19 @@ bean属性
         <aop:throwing>
     5、最终通知（无论方法是否有异常都会执行）
         <aop:after>    
-        
+4、整体AOP开发步骤
+----
+    1、导入AOP(pom.xml)相关坐标(spring-context、aspectjweaver) 
+    2、创建目标接口和目标类（内部有切点（目标方法））
+    3、创建切面类（内部有增强方法）
+    4、将目标类和切面类的对象创建权交给spring
+    5、在applicationContext.xml中(或切面类中使用注解)配置织入关系
+    6、在配置文件中开启组件扫描和AOP的自动代理（xml方式省略这一步）
+        <!--开启组件扫描-->
+        <context:component-scan base-package="com.itheima.anno"/>
+    
+        <!--aop自动代理-->
+        <aop:aspectj-autoproxy/>
+    7、测试
+    
+           
