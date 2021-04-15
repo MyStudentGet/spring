@@ -148,5 +148,14 @@ bean属性
         <!--aop自动代理-->
         <aop:aspectj-autoproxy/>
     7、测试
-    
+六、Spring JdbcTemplate基本使用
+====
+1、JdbcTemplate开发步骤
+----
+    1、导入spring-jdbc和spring-tx坐标
+    2、创建数据库表和实体类
+    3、创建JdbcTemplate对象
+    4、设置数据源对象  （知道数据库在哪）
+            .setDataSource(数据源对象（需要设置连接参数）)方法
+    4、执行数据库操作（增删查改）
            
