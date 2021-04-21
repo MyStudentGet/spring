@@ -150,12 +150,38 @@ bean属性
     7、测试
 六、Spring JdbcTemplate基本使用
 ====
-1、JdbcTemplate开发步骤
+1、JdbcTemplate（普通）开发步骤
 ----
     1、导入spring-jdbc和spring-tx坐标
     2、创建数据库表和实体类
     3、创建JdbcTemplate对象
     4、设置数据源对象  （知道数据库在哪）
-            .setDataSource(数据源对象（需要设置连接参数）)方法
+            JdbcTemplate.setDataSource(数据源对象（需要设置连接参数）)方法
     4、执行数据库操作（增删查改）
-           
+2、 JdbcTemplate（xml方式）开发步骤    
+----
+    1、导入spring-jdbc和spring-tx坐标
+    2、引入外部property文件
+    2、在xml内配置数据源对象（dataSource  来源c3p0），并设置连接属性（property）
+    3、配置jdbc模板对象，并设置相应的数据源对象
+            <property name="dataSource" ref="dataSource"/>
+    4、测试  
+        List<Bean表> tbl_UserList = jdbcTemplate.query("sql语句",new BeanPropertyRowMapper<表名>(类名.class));   
+        
+3、需要用到的类和方法
+----
+    1、用模板对象对数据库进行增删改
+        jdbcTemplate.update(sql语句,参数1，参数2)
+    2、用模板对象对数据库进行查询
+        1）、查询多条或单条信息（返回集合）（常用）
+            jdbcTemplate.query(sql语句,BeanPropertyRowMapper对象,参数)
+            
+        2）、查询单条信息（返回一个对象或一个数字）
+            .queryForObject(sql语句,BeanPropertyRowMapper对象,参数)
+            .queryForObject(sql语句,返回值的类型,参数)
+    3、BeanPropertyRowMapper：常应用于使用Spring的JdbcTemplate查询数据库，获取List结果列表，数据库表字段和实体类自动对应。
+    4、
+    
+    
+    
+    
