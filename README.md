@@ -180,7 +180,37 @@ bean属性
             .queryForObject(sql语句,BeanPropertyRowMapper对象,参数)
             .queryForObject(sql语句,返回值的类型,参数)
     3、BeanPropertyRowMapper：常应用于使用Spring的JdbcTemplate查询数据库，获取List结果列表，数据库表字段和实体类自动对应。
-    4、
+
+七、Spring 事务控制  
+====
+1、编程式事务控制
+----
+    1）、相应api
+        平台事务管理器(接口，下面有多个实现类)（内部控制事务方式不同，有不同的实现类）:
+            PlatformTransactionManager
+        
+        事务定义对象:TransactionDefinition
+            int getIsolationLevel()         获得事务的隔离级别（可以解决 脏读（_READ_UNCOMMITTED）、不可重复读（_COMMITTED）、虚读（幻读）（）（SERIALIZABLE））（ISOLATION_REPEATABLE_READ，能解决所有问题单性能很低）
+            int getPropogationBehavior()    获得事务的传播行为（处理方法互相调用时要不要重新创建事务）（REQUIRED:没有事务就新建一个，有事务就加入到这个事务中去 ， SUPPORTS:支持当前事务，如果没有事务就以非事务方式执行）
+            int getTimeout()                获得超时时间（默认值是-1，没有超时限制）
+            boolean isReadOnly()            是否只读（建议查询时设置只读）
+            
+        事务状态对象：TransactionStatus
+            boolean hasSavepont()           是否存储回滚点
+            boolean isCompleted()           事务是否完成
+            boolean isNewTransaction()      是否是新事务
+            boolean isRollbackOnly()        事务是否回滚
+         
+         
+         
+         
+2、基于xml的声明式事务控制
+----
+    
+    
+3、基于注解的声明式事务控制
+----
+
     
     
     

@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="itheima_spring_jdbc" />
         <module name="itheima_spring_ioc" />
+        <module name="itheima_spring_tx" />
         <module name="itheima_sping_anno" />
         <module name="itheima_spring_aop" />
       </profile>
@@ -17,6 +18,7 @@
       <module name="itheima_spring_aop" target="1.5" />
       <module name="itheima_spring_ioc" target="1.5" />
       <module name="itheima_spring_jdbc" target="1.5" />
+      <module name="itheima_spring_tx" target="1.5" />
     </bytecodeTargetLevel>
   </component>
 </project>
