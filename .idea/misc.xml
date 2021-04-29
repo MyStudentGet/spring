@@ -11,6 +11,7 @@
         <option value="$PROJECT_DIR$/itheima_spring_aop/pom.xml" />
         <option value="$PROJECT_DIR$/itheima_spring_jdbc/pom.xml" />
         <option value="$PROJECT_DIR$/itheima_spring_tx/pom.xml" />
+        <option value="$PROJECT_DIR$/itheima_spring_tx_anno/pom.xml" />
       </list>
     </option>
   </component>
