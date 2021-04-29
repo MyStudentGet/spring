@@ -181,34 +181,57 @@ bean属性
             .queryForObject(sql语句,返回值的类型,参数)
     3、BeanPropertyRowMapper：常应用于使用Spring的JdbcTemplate查询数据库，获取List结果列表，数据库表字段和实体类自动对应。
 
-七、Spring 事务控制  
+七、Spring 事务控制（事务回滚）
 ====
-1、编程式事务控制
+
+1）、相应api
 ----
-    1）、相应api
-        平台事务管理器(接口，下面有多个实现类)（内部控制事务方式不同，有不同的实现类）:
-            PlatformTransactionManager
+    平台事务管理器(接口，下面有多个实现类)（内部控制事务方式不同，有不同的实现类）:
+        PlatformTransactionManager
+    
+    事务定义对象:TransactionDefinition
+        int getIsolationLevel()         获得事务的隔离级别（可以解决 脏读（_READ_UNCOMMITTED）、不可重复读（_COMMITTED）、虚读（幻读）（）（SERIALIZABLE））（ISOLATION_REPEATABLE_READ，能解决所有问题单性能很低）
+        int getPropogationBehavior()    获得事务的传播行为（处理方法互相调用时要不要重新创建事务）（REQUIRED:没有事务就新建一个，有事务就加入到这个事务中去 ， SUPPORTS:支持当前事务，如果没有事务就以非事务方式执行）
+        int getTimeout()                获得超时时间（默认值是-1，没有超时限制）
+        boolean isReadOnly()            是否只读（建议查询时设置只读）
         
-        事务定义对象:TransactionDefinition
-            int getIsolationLevel()         获得事务的隔离级别（可以解决 脏读（_READ_UNCOMMITTED）、不可重复读（_COMMITTED）、虚读（幻读）（）（SERIALIZABLE））（ISOLATION_REPEATABLE_READ，能解决所有问题单性能很低）
-            int getPropogationBehavior()    获得事务的传播行为（处理方法互相调用时要不要重新创建事务）（REQUIRED:没有事务就新建一个，有事务就加入到这个事务中去 ， SUPPORTS:支持当前事务，如果没有事务就以非事务方式执行）
-            int getTimeout()                获得超时时间（默认值是-1，没有超时限制）
-            boolean isReadOnly()            是否只读（建议查询时设置只读）
-            
-        事务状态对象：TransactionStatus
-            boolean hasSavepont()           是否存储回滚点
-            boolean isCompleted()           事务是否完成
-            boolean isNewTransaction()      是否是新事务
-            boolean isRollbackOnly()        事务是否回滚
+    事务状态对象：TransactionStatus
+        boolean hasSavepont()           是否存储回滚点
+        boolean isCompleted()           事务是否完成
+        boolean isNewTransaction()      是否是新事务
+        boolean isRollbackOnly()        事务是否回滚      
          
-         
-         
-         
-2、基于xml的声明式事务控制
+2、基于xml的声明式事务控制（事务回滚）
 ----
+    步骤：
+    （平台事务管理器、通知 和 aop织入 基本是配死了（基本不改））
+    1）、引入坐标tx、jdbc、mysql驱动以及spring包
+    2）、在xml文件顶部写入tx和aop的路径
+    3）、配置bean
+            数据源（dataSource）
+            jdbc模板驱动（jdbcTemplate）
+            Dao类（属性来源于模板）
+            目标对象类（内有切点）
+            平台事务管理器（transactionManager）（使用不同平台管理，具体实现类不同（参考上面的api））
+    4）、配置通知（事务哪些增强）
+            <tx:advice id="txAdvice" transaction-manager="平台事务管理器">
+                
+                设置事务的哪些属性
+                <tx:attributes>
+                
+                    哪些方法被增强
+                        isolation:隔离级别  propagation:传播行为  timeout:超时时间  read-only:是否只读
+                    <tx:method name="*" isolation="DEFAULT" propagation="REQUIRED" timeout="-1" read-only="false"/>
+                 </tx:attributes>
+            </tx:advice>   
+    5）、配置事务的aop织入
+            <aop:config>
+                    <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.itheima.service.impl.*.*(..))"/>
+            </aop:config>
     
     
-3、基于注解的声明式事务控制
+    
+3、基于注解的声明式事务控制（事务回滚）
 ----
 
     
