@@ -28,12 +28,12 @@
         <property name="dataSource" ref="dataSource"></property>
     </bean>
 
-    <bean id="tbl_userDao" class="com.itheima.dao.impl.Tbl_UserDaoImpl">
+    <bean id="tbl_userDao" class="com.Tbl_UserDaoImpl">
         <property name="jdbcTemplate" ref="jdbcTemplate"/>
     </bean>
 
     <!-- 目标对象  内部方法就是切点-->
-    <bean id="tbl_userService" class="com.itheima.service.impl.Tbl_UserServiceImpl">
+    <bean id="tbl_userService" class="com.Tbl_UserServiceImpl">
         <property name="tbl_userDao" ref="tbl_userDao"/>
     </bean>
 

@@ -3,12 +3,18 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
 
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
                             http://www.springframework.org/schema/aop
                             http://www.springframework.org/schema/aop/spring-aop.xsd
-                             http://www.springframework.org/schema/tx
-                            http://www.springframework.org/schema/tx/spring-tx.xsd">
+                            http://www.springframework.org/schema/tx
+                            http://www.springframework.org/schema/tx/spring-tx.xsd
+                            http://www.springframework.org/schema/context
+                            http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--设置组件扫描-->
+    <context:component-scan base-package="com.itheima"/>
 
     <!-- 配置数据源-->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
@@ -28,38 +34,12 @@
         <property name="dataSource" ref="dataSource"></property>
     </bean>
 
-    <bean id="tbl_userDao" class="com.itheima.dao.impl.Tbl_UserDaoImpl">
-        <property name="jdbcTemplate" ref="jdbcTemplate"/>
-    </bean>
-
-    <!-- 目标对象  内部方法就是切点-->
-    <bean id="tbl_userService" class="com.itheima.service.impl.Tbl_UserServiceImpl">
-        <property name="tbl_userDao" ref="tbl_userDao"/>
-    </bean>
-
     <!--配置平台事务管理器-->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
-    <!--通知 事务的增强-->
-    <tx:advice id="txAdvice" transaction-manager="transactionManager">
-        <!--设置事务的属性信息-->
-        <tx:attributes>
-
-            <!--哪些方法被增强-->
-            <!--isolation:隔离级别  propagation:传播行为  timeout:超时时间  read-only:是否只读-->
-            <tx:method name="*" isolation="DEFAULT" propagation="REQUIRED" timeout="-1" read-only="false"/>
-
-            <!--也可以单独对某些方法（以update开头的方法）不同增强-->
-<!--            <tx:method name="update*" isolation="REPEATABLE_READ" propagation="REQUIRED" read-only="false"/>-->
-
-        </tx:attributes>
-    </tx:advice>
-
-    <!--配置事务的aop织入-->
-    <aop:config>
-        <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.itheima.service.impl.*.*(..))"/>
-    </aop:config>
+    <!--事务的注解驱动（让注解的事务起作用）-->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
 
 </beans>

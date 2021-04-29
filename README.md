@@ -228,13 +228,26 @@ bean属性
             <aop:config>
                     <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.itheima.service.impl.*.*(..))"/>
             </aop:config>
-    
-    
-    
+            
 3、基于注解的声明式事务控制（事务回滚）
 ----
-
-    
+    步骤：
+    1）、引入坐标tx、jdbc、mysql驱动以及spring包
+    2）、在xml文件顶部写入tx、aop和context的路径
+    3）、实例化Dao类的bean   使用注解（@Repository）
+    4）、配置Service类    
+           （1）、使用注解（@Service）实例化bean
+           （2）、注入属性Dao类（@Resource）
+           （3）、配置aop织入（@Transactional）（放在类上表示所有方法都用同样的增强，放在方法上表示增强某一方法）
+    5）、设置组件扫描
+            <context:component-scan base-package="com.itheima"/>
+    6）、配置数据源
+    7）、配置jdbc模板驱动  
+    8）、配置平台事务管理器
+    9）、配置事务的注解驱动（让注解的事务起作用）
+            <tx:annotation-driven transaction-manager="transactionManager"/>
+                
+            
     
     
     

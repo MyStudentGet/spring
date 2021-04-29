@@ -1,16 +1,21 @@
-package itheima.dao.impl;
+package com.itheima.dao.impl;
 
 import com.itheima.dao.Tbl_UserDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 //数据处理层
+@Repository("tbl_userDao")
 public class Tbl_UserDaoImpl implements Tbl_UserDao {
 
+    @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
+//    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+//        this.jdbcTemplate = jdbcTemplate;
+//    }
 
     //转钱的方法
     public void out(String outMan,double money){

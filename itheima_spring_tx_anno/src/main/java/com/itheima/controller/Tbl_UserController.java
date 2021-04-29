@@ -1,4 +1,4 @@
-package itheima.controller;
+package com.itheima.controller;
 
 import com.itheima.service.Tbl_UserService;
 import org.springframework.context.ApplicationContext;

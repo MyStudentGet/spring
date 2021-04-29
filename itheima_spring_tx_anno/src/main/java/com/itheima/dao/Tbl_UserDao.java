@@ -1,4 +1,4 @@
-package itheima.dao;
+package com.itheima.dao;
 
 public interface Tbl_UserDao {
     //钱转出
