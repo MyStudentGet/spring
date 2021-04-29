@@ -233,7 +233,7 @@ bean属性
 ----
     步骤：
     1）、引入坐标tx、jdbc、mysql驱动以及spring包
-    2）、在xml文件顶部写入tx、aop和context的路径
+    2）、在xml文件顶部写入tx和context的路径
     3）、实例化Dao类的bean   使用注解（@Repository）
     4）、配置Service类    
            （1）、使用注解（@Service）实例化bean
