@@ -232,22 +232,65 @@ bean属性
 3、基于注解的声明式事务控制（事务回滚）
 ----
     步骤：
-    1）、引入坐标tx、jdbc、mysql驱动以及spring包
-    2）、在xml文件顶部写入tx和context的路径
-    3）、实例化Dao类的bean   使用注解（@Repository）
-    4）、配置Service类    
+    1）引入坐标tx、jdbc、mysql驱动以及spring包
+    2）在xml文件顶部写入tx和context的路径
+    3）实例化Dao类的bean   使用注解（@Repository）
+    4）配置Service类    
            （1）、使用注解（@Service）实例化bean
            （2）、注入属性Dao类（@Resource）
-           （3）、配置aop织入（@Transactional）（放在类上表示所有方法都用同样的增强，放在方法上表示增强某一方法）
-    5）、设置组件扫描
+           （3）、配置aop织入（@Transactional）（可加多个参数）（放在类上表示所有方法都用同样的增强，放在方法上表示增强某一方法）
+    5）设置组件扫描
             <context:component-scan base-package="com.itheima"/>
-    6）、配置数据源
-    7）、配置jdbc模板驱动  
-    8）、配置平台事务管理器
-    9）、配置事务的注解驱动（让注解的事务起作用）
+    6）配置数据源
+    7）配置jdbc模板驱动  
+    8）配置平台事务管理器
+    9）配置事务的注解驱动（让注解的事务起作用）
             <tx:annotation-driven transaction-manager="transactionManager"/>
                 
-            
+八、SpringMVC
+====
+
+1、开发步骤
+----
+    1）导入SpringMVC的坐标
+    2）配置SpringMVC核心控制器DispathcerServlet（前端控制器）
+    3）创建Controller类和视图（jsp）页面
+    4）使用注解配置Controller类中的业务方法的映射地址
+    5）配置SpringMVC核心文件spring-mvc.xml
+    6）客户端发起请求测试
     
-    
-    
+2、流程演示
+----
+    客户端         --请求-->                     tomcat服务器
+                                tomcat引擎(前端控制器)                   Web应用
+                          1、接受客户请求，解析地址           1、得到前端控制器传过来的req与resp对象）
+                          2、创建req对象与resp对象          2、映射访问真实资源（哪个service的哪个方法）
+                          3、调用目标资源                   3、真实资源返回视图
+           <--响应--       4、获得Web应用传过来的resp的内容       
+                            组装成http响应回客户端
+                          
+3、SpringMVC的执行流程
+----
+    1）用户发送请求至前端控制器DispatcherServlet.
+    2）DispatcherServlet收到请求调用HandlerMapping处理器映射器。
+    3）处理器映射器找到具体的处理器(可以根据xml配置、注解进行查找)，生成处理器对象及处理器拦截器(如果有则生成)一并返回给DispatcherServlet.
+    4）DispatcherServlet调用HandlerAdapter处理器适配器。
+    5）HandlerAdapter经过适配调用具体的处理器(Controller，叫后端控制器)。
+    6）Controller执行完成返回ModelAndView。
+    7）HandlerAdapter将controller执行结果ModelAndView返回给DispatcherServlet。
+    8）DispatcherServlet将ModelAndView传给ViewReslover视图解析器。
+    9）ViewReslover解析后返回具体View.
+    10）DispatcherServlet根据View进行渲染视图(即将模型数据填充至视图中)。DispatcherServlet响应用户。
+
+4、SpringMVC注解解析
+----   
+    @RequestMapping(类标签/方法标签)       设置映射地址（属性有value、method、params）
+                      
+5、SpringMVC的数据响应方式
+----
+    1）页面跳转      （forward（默认，转发）、redirect（重定向））
+        1、直接返回字符串（方法返回值类型：String）
+        2、通过ModelAndView对象返回
+    2）回写数据
+        1、直接返回字符串
+        2、返回对象或集合                               

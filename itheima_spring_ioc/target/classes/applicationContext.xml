@@ -32,4 +32,7 @@
 <!--    bean生命周期  init-method="init"：初始化之前执行的代码  destroy-method="destory"：销毁之前执行的代码-->
 <!--        <bean id="userDao" class="com.itheima.dao.impl.UserDaoimpl" init-method="init" destroy-method="destory"/>-->
 
+<!--        可以在外部导入其他xml模块，此时只需要运行主文件即可-->
+        <import resource="applicationContext-product.xml"/>
+        <import resource="applicationContext-user.xml"/>
 </beans>
