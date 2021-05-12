@@ -2,9 +2,11 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
 
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <!--Controller的组件扫描-->
     <context:component-scan base-package="com.itheima.controller"/>
@@ -19,4 +21,16 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
+    <!--配置处理器映射器-->
+<!--    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">-->
+<!--        <property name="messageConverters">-->
+<!--            <list>-->
+<!--                <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>-->
+<!--            </list>-->
+<!--        </property>-->
+<!--    </bean>-->
+
+    <!--mvc的注解驱动(可代替上面)-->
+    <!--默认底层会集成jsckson进行对象或集合的json格式转换（要在头部加载）-->
+    <mvc:annotation-driven/>
 </beans>

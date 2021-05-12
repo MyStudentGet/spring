@@ -2,7 +2,6 @@ package com.itheima.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itheima.domain.Tbl_User;
-import com.itheima.domain.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * 页面跳转：91集
+ * 页面跳转：
  * /quick：  返回值类型：String            只有视图                页面结果：Success!
  * /quick2： 返回值类型：ModelAndView      模板视图                页面结果：Success!itcast
  * /quick3： 返回值类型：ModelAndView      模板视图对象由参数创建     页面结果：Success!itheima
@@ -23,8 +22,10 @@ import java.io.IOException;
  * /quick5： 返回值类型：String            req对象由参数创建        页面结果：Success!请求对象          不常用
  *
  * 回写数据：
- * /quick6： 返回值类型：void              resp对象由参数创建       页面结果：hello itcast
- * /quick6： 返回值类型：String            直接返回回写数据         页面结果：hello itheima
+ * /quick6： 返回值类型：void              Web方式回写数据          页面结果：hello itcast
+ * /quick7： 返回值类型：String            直接返回回写数据          页面结果：hello itheima
+ * /quick8： 返回值类型：String            使用json转换工具回写数据   页面结果：json格式字符串
+ * /quick9： 返回值类型：对象类型            xml中配置处理器映射器     页面结果：json格式字符串
  *
  */
 @Controller
@@ -105,21 +106,32 @@ public class UserController {
         return "hello itheima";
     }
 
-    //注解回写数据方式
+    //使用json转换工具（返回user对象）
     @RequestMapping(value = "/quick8")
     @ResponseBody  //告诉SpringMVC这是页面回写不是跳转视图
     public String save8() throws IOException {
-//        Tbl_User user =new Tbl_User();
-//        user.setUsername("lisi");
-//        user.setPassword("123456");
-        User user = new User();
-        user.setUsername("lisi");
-        user.setAge(30);
+        Tbl_User tbl_user =new Tbl_User();
+        tbl_user.setUsername("lisi");
+        tbl_user.setPassword("123456");
 
         //使用json转换工具(需要导三个包jackson-core、jackson-databind、jackson-annotations)
         ObjectMapper objectMapper = new ObjectMapper();
-        String json = objectMapper.writeValueAsString(user);
+        String json = objectMapper.writeValueAsString(tbl_user);
 
         return json;
+    }
+
+    //使用json转换工具（返回user对象）
+    @RequestMapping(value = "/quick9")
+    @ResponseBody  //告诉SpringMVC这是页面回写不是跳转视图
+    //期望SpringMVC自动将User转换成json格式的字符串
+    public Tbl_User save9() throws IOException {
+        Tbl_User tbl_user =new Tbl_User();
+        tbl_user.setUsername("lisi2");
+        tbl_user.setPassword("123456");
+
+        //在Spring-mvc.xml中配置处理器映射器
+
+        return tbl_user;
     }
 }
