@@ -1,20 +1,30 @@
 package com.itheima.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.itheima.domain.Tbl_User;
+import com.itheima.domain.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * 页面跳转：91集
  * /quick：  返回值类型：String            只有视图                页面结果：Success!
  * /quick2： 返回值类型：ModelAndView      模板视图                页面结果：Success!itcast
  * /quick3： 返回值类型：ModelAndView      模板视图对象由参数创建     页面结果：Success!itheima
- * /quick4： 返回值类型：String            模板对象由参数创建        页面结果：Success!模板和视图分开
- * /quick5： 返回值类型：String            resp对象由参数创建       页面结果：Success!请求对象          不常用
+ * /quick4： 返回值类型：String            模板与视图分离           页面结果：Success!模板和视图分开
+ * /quick5： 返回值类型：String            req对象由参数创建        页面结果：Success!请求对象          不常用
+ *
+ * 回写数据：
+ * /quick6： 返回值类型：void              resp对象由参数创建       页面结果：hello itcast
+ * /quick6： 返回值类型：String            直接返回回写数据         页面结果：hello itheima
  *
  */
 @Controller
@@ -77,5 +87,39 @@ public class UserController {
         request.setAttribute("username","请求对象");
 
         return "success";
+    }
+
+    //回写数据（普通Web方式）
+    @RequestMapping(value = "/quick6")
+    public void save6(HttpServletResponse response) throws IOException {
+
+        //回写数据（前端发ajax访问）
+        response.getWriter().print("hello itcast");
+    }
+
+    //注解回写数据方式
+    @RequestMapping(value = "/quick7")
+    @ResponseBody  //告诉SpringMVC这是页面回写不是跳转视图
+    public String save7(HttpServletResponse response) throws IOException {
+
+        return "hello itheima";
+    }
+
+    //注解回写数据方式
+    @RequestMapping(value = "/quick8")
+    @ResponseBody  //告诉SpringMVC这是页面回写不是跳转视图
+    public String save8() throws IOException {
+//        Tbl_User user =new Tbl_User();
+//        user.setUsername("lisi");
+//        user.setPassword("123456");
+        User user = new User();
+        user.setUsername("lisi");
+        user.setAge(30);
+
+        //使用json转换工具(需要导三个包jackson-core、jackson-databind、jackson-annotations)
+        ObjectMapper objectMapper = new ObjectMapper();
+        String json = objectMapper.writeValueAsString(user);
+
+        return json;
     }
 }

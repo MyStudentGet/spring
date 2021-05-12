@@ -285,6 +285,8 @@ bean属性
 4、SpringMVC注解解析
 ----   
     @RequestMapping(类标签/方法标签)       设置映射地址（属性有value、method、params）
+    @ResponseBody(方法标签)               页面不进行视图跳转，直接进行数据响应（Http方式响应）
+                 
                       
 5、SpringMVC的数据响应方式
 ----
