@@ -250,6 +250,18 @@ bean属性
 八、SpringMVC
 ====
 
+重点
+----
+    1、spring-mvc.xml
+        1）mvc的注解驱动很重要（默认底层会集成jsckson进行对象或集合的json格式转换），建议一开头就加上
+                <mvc:annotation-driven/>
+        2）静态资源会被前端控制器拦截，最好配置成 “如果MVC找不到对应的资源就交给原始容器（Tomcat服务器）找”
+                <mvc:default-servlet-handler/>
+    2、web.xml
+        1）Maven项目需要在类路径（resources）下加载相应配置文件
+                配置全局初始化参数<context-param> 
+        2）配置全局过滤的filter（处理传过来的数据中文乱码）
+                <filter>
 1、开发步骤
 ----
     1）导入SpringMVC的坐标
@@ -286,13 +298,13 @@ bean属性
 ----   
     @RequestMapping(类标签/方法标签)       设置映射地址（属性有value、method、params）
     @ResponseBody(方法标签)               页面不进行视图跳转，直接进行数据响应（Http方式响应）
-                 
+    @RequestParam(参数标签)               页面传过来的数据和表中哪个字段匹配（id和tbl_userId）            
                       
 5、SpringMVC的数据响应方式
 ----
     1）页面跳转      （forward（默认，转发）、redirect（重定向））
         1、直接返回字符串（方法返回值类型：String）
         2、通过ModelAndView对象返回
-    2）回写数据
+    2）回写数据      （例子：UserController类）
         1、直接返回字符串
         2、返回对象或集合                               

@@ -2,8 +2,10 @@ package com.itheima.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itheima.domain.Tbl_User;
+import com.itheima.domain.VO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -12,6 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * 页面跳转：
@@ -21,11 +25,20 @@ import java.io.IOException;
  * /quick4： 返回值类型：String            模板与视图分离           页面结果：Success!模板和视图分开
  * /quick5： 返回值类型：String            req对象由参数创建        页面结果：Success!请求对象          不常用
  *
- * 回写数据：
+ * 回写数据：@ResponseBody
  * /quick6： 返回值类型：void              Web方式回写数据          页面结果：hello itcast
  * /quick7： 返回值类型：String            直接返回回写数据          页面结果：hello itheima
  * /quick8： 返回值类型：String            使用json转换工具回写数据   页面结果：json格式字符串
- * /quick9： 返回值类型：对象类型            xml中配置处理器映射器     页面结果：json格式字符串
+ * /quick9： 返回值类型：对象类型POJO        xml中配置处理器映射器     页面结果：json格式字符串
+ *
+ * 获得请求参数：
+ * /quick10?username=zhangsan&age=19：         返回值类型：void             方法参数：普通字段     页面结果：空白（控制台打印username与password信息）
+ * /quick11?username=zhangsan&password=1902：  返回值类型：void             方法参数：对象        页面结果：空白（控制台打印Tbl_User对象信息）
+ * /quick12?strs=aaa&strs=bbb&strs=ccc：       返回值类型：void             方法参数：数组        页面结果：空白（控制台打印数组对象信息）
+ * /form.jsp                                   返回值类型：void             方法参数：集合        页面结果：空白（控制台打印集合对象信息）
+ * /ajax.jsp                                   返回值类型：void             方法参数：集合        页面结果：空白（控制台打印集合对象信息）           (参数前要加注解@RequestBody)
+ *
+ *
  *
  */
 @Controller
@@ -86,7 +99,7 @@ public class UserController {
 
         //未封装的Model，作用和Model相同
         request.setAttribute("username","请求对象");
-
+        System.out.println(request.getParameter("id"));
         return "success";
     }
 
@@ -134,4 +147,52 @@ public class UserController {
 
         return tbl_user;
     }
+
+    //获得请求参数（普通参数）
+    @RequestMapping(value = "/quick10")
+    @ResponseBody  //告诉SpringMVC这是页面回写不是跳转视图
+    //期望SpringMVC自动将User转换成json格式的字符串
+    public void save10(String username, int age) throws IOException {
+        System.out.println(username);
+        System.out.println(age);
+    }
+
+    //获得POJO类型参数（存储到对象）
+    @RequestMapping(value = "/quick11")
+    @ResponseBody  //告诉SpringMVC这是页面回写不是跳转视图
+    //期望SpringMVC自动将User转换成json格式的字符串
+    public void save11(Tbl_User tbl_user) throws IOException {
+        System.out.println(tbl_user);
+    }
+
+    //获得数组类型参数（存储到对象）
+    @RequestMapping(value = "/quick12")
+    @ResponseBody  //告诉SpringMVC这是页面回写不是跳转视图
+    //期望SpringMVC自动将User转换成json格式的字符串
+    public void save12(String[] strs) throws IOException {
+        //Arrays.asList(strs):单纯打印数组会出现地址，这个方法用来打印数组数据
+        System.out.println(Arrays.asList(strs));
+    }
+
+    //获得集合类型参数（存储到对象）
+    @RequestMapping(value = "/quick13")
+    @ResponseBody  //告诉SpringMVC这是页面回写不是跳转视图
+    //期望SpringMVC自动将User转换成json格式的字符串
+    public void save13(VO vo) throws IOException {
+
+        //集合类型数据不能直接为方法参数，要封装到一个类（VO）中
+        System.out.println(vo);
+    }
+
+    //获得集合类型参数（直接接收集合）
+    @RequestMapping(value = "/quick14")
+    @ResponseBody  //告诉SpringMVC这是页面回写不是跳转视图
+    //期望SpringMVC自动将User转换成json格式的字符串
+    public void save14(@RequestBody List<Tbl_User> tbl_userList) throws IOException {
+
+        //1、前端需要创建集合并用ajax发json格式的集合过来
+        //2、需要在方法参数前加上@RequestBody注解
+        System.out.println(tbl_userList);
+    }
+
 }

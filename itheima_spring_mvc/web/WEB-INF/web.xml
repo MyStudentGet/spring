@@ -5,11 +5,30 @@
          version="4.0">
 
     <!--Maven项目需要在类路径（resources）下加载相应配置文件-->
-<!--全局初始化参数-->
+    <!--全局初始化参数-->
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath:applicationContext.xml</param-value>
     </context-param>
+
+    <!--配置全局过滤的filter（处理传过来的数据中文乱码）-->
+    <filter>
+        <filter-name>CharacterEncodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <!--指定用什么编码格式-->
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>CharacterEncodingFilter</filter-name>
+        <!--所有资源都进行过滤-->
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
+    
     <!--配置SpringMVC的前端控制器-->
     <servlet>
         <servlet-name>DispatcherServlet</servlet-name>
@@ -33,15 +52,4 @@
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
-
-    <servlet>
-        <servlet-name>UserServlet</servlet-name>
-        <servlet-class>com.itheima.web.UserServlet</servlet-class>
-    </servlet>
-    
-    <servlet-mapping>
-        <servlet-name>UserServlet</servlet-name>
-        <url-pattern>/userServlet</url-pattern>
-    </servlet-mapping>
-    
 </web-app>
