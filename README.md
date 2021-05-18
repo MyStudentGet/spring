@@ -299,7 +299,7 @@ bean属性
     @RequestMapping(类标签/方法标签)       设置映射地址（属性有value、method、params）
     @ResponseBody(方法标签)               页面不进行视图跳转，直接进行数据响应（Http方式响应）
     @RequestParam(参数标签)               页面传过来的数据和表中哪个字段匹配（id和tbl_userId）            
-                      
+    @RequestHeader(参数标签（参数名）)      获得请求头的某一参数           
 5、SpringMVC的数据响应方式
 ----
     1）页面跳转      （forward（默认，转发）、redirect（重定向））
@@ -307,4 +307,27 @@ bean属性
         2、通过ModelAndView对象返回
     2）回写数据      （例子：UserController类）
         1、直接返回字符串
-        2、返回对象或集合                               
+        2、返回对象或集合 
+6、自定义类型转换器步骤
+----
+    1）定义转换器类实现Converter接口 
+    2）在配置文件中声明转换器     
+    3）在<annotation-driven>中引用转换器       
+    
+7、文件上传
+----
+    1.文件上传客户端三要素
+        表单项type=“file"
+        表单的提交方式是post
+        表单的enctype属性是多部分表单形式(默认是URl编码形式)。及enctype= "multipart/form-data”
+    
+    2.文件上传原理
+        当form表单修改为多部分表单时，request.getParameter()将失效
+        enctype= "application/x-wgww-form-urlencoded”时，form表单的正文内容格式是:key=value&key=value&key=value
+        当form表单的enctype取值为MutilpartV/form-data时，请求正文内容就变成多部份形式
+    
+    3.单文件上传步骤
+        导入fileupload和io坐标
+        配置文件上传解析器
+        编写文件上传代码
+     

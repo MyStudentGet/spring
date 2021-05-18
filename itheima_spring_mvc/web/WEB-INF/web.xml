@@ -11,7 +11,7 @@
         <param-value>classpath:applicationContext.xml</param-value>
     </context-param>
 
-    <!--配置全局过滤的filter（处理传过来的数据中文乱码）-->
+    <!--配置全局过滤的filter（处理传过来的数据中文乱码（post方式））-->
     <filter>
         <filter-name>CharacterEncodingFilter</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>

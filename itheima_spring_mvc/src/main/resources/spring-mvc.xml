@@ -32,7 +32,7 @@
 
     <!--mvc的注解驱动(可代替上面)-->
     <!--默认底层会集成jsckson进行对象或集合的json格式转换（要在头部加载）-->
-    <mvc:annotation-driven/>
+    <mvc:annotation-driven conversion-service="conversionService"/>
 
     <!--开放资源的访问（静态资源的加载（jquery-1.12.4.js））-->
     <!--mapping：请求地址 location:哪个路径下的资源是开放的-->
@@ -41,5 +41,26 @@
 
     <!--如果MVC找不到对应的资源就交给原始容器（Tomcat服务器）找(可代替上面的形式)-->
     <mvc:default-servlet-handler/>
+
+    <!--声明转换器(工厂)-->
+    <bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+        <property name="converters">
+            <list>
+                <bean class="com.itheima.converter.DateConverter"/>
+            </list>
+        </property>
+    </bean>
+
+    <!--配置文件上传解析器-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!--上传文件总大小-->
+        <property name="maxUploadSize" value="5242800"/>
+        <!--上传单个文件的大小-->
+        <property name="maxUploadSizePerFile" value="5242800"/>
+        <!--上传文件的编码类型-->
+        <property name="defaultEncoding" value="UTF-8"/>
+    </bean>
+
+
 
 </beans>

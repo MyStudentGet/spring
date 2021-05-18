@@ -5,16 +5,16 @@ import com.itheima.domain.Tbl_User;
 import com.itheima.domain.VO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -32,14 +32,26 @@ import java.util.List;
  * /quick9： 返回值类型：对象类型POJO        xml中配置处理器映射器     页面结果：json格式字符串
  *
  * 获得请求参数：
- * /quick10?username=zhangsan&age=19：         返回值类型：void             方法参数：普通字段     页面结果：空白（控制台打印username与password信息）
- * /quick11?username=zhangsan&password=1902：  返回值类型：void             方法参数：对象        页面结果：空白（控制台打印Tbl_User对象信息）
- * /quick12?strs=aaa&strs=bbb&strs=ccc：       返回值类型：void             方法参数：数组        页面结果：空白（控制台打印数组对象信息）
- * /form.jsp                                   返回值类型：void             方法参数：集合        页面结果：空白（控制台打印集合对象信息）
- * /ajax.jsp                                   返回值类型：void             方法参数：集合        页面结果：空白（控制台打印集合对象信息）           (参数前要加注解@RequestBody)
+ * /quick10?username=zhangsan&age=19：         获得普通请求参数                  方法参数：普通字段          页面结果：空白（控制台打印username与password信息）
+ * /quick11?username=zhangsan&password=1902：  获得POJO（对象属性）类型参数        方法参数：对象             页面结果：空白（控制台打印Tbl_User对象信息）
+ * /quick12?strs=aaa&strs=bbb&strs=ccc：       获得数组类型参数                  方法参数：数组             页面结果：空白（控制台打印数组对象信息）
+ * /form.jsp                                   获得集合类型参数（集合常用）        方法参数：集合             页面结果：空白（控制台打印集合对象信息）
+ * /ajax.jsp                                   获得集合类型参数（直接接收集合）     方法参数：集合             页面结果：空白（控制台打印集合对象信息）            (参数前要加注解@RequestBody)
+ * /quick15?name=zhangsan或/quick15            获得普通请求参数                  方法参数：与自定义名称不符   页面结果：空白（控制台打印username信息）           (参数前加上@RequestParam("页面参数名"))
  *
+ * 获得Restful风格参数：
+ * /quick16/zhangsan                            get方式（获取资源）              方法参数：普通字段         页面结果：空白（控制台打印username信息）           (参数前加上@RequestParam("页面参数名"))
  *
+ * 自定义类型转换器：
+ * quick17?date=2021-5-18    String转Date类型    页面结果：空白（控制台打印Date对象信息）
  *
+ * 获取请求头参数：
+ * /quick18            获取的参数：User-Agent     使用注解：@RequestHeader
+ * /quick19            获取的参数：cookie         使用注解：@CookieValue
+ *
+ *文件上传：
+ * /upload.jsp（第一个表单）      单文件上传
+ * /upload.jsp（第二个表单）      多文件上传
  */
 @Controller
 @RequestMapping("/user")
@@ -151,7 +163,6 @@ public class UserController {
     //获得请求参数（普通参数）
     @RequestMapping(value = "/quick10")
     @ResponseBody  //告诉SpringMVC这是页面回写不是跳转视图
-    //期望SpringMVC自动将User转换成json格式的字符串
     public void save10(String username, int age) throws IOException {
         System.out.println(username);
         System.out.println(age);
@@ -160,39 +171,116 @@ public class UserController {
     //获得POJO类型参数（存储到对象）
     @RequestMapping(value = "/quick11")
     @ResponseBody  //告诉SpringMVC这是页面回写不是跳转视图
-    //期望SpringMVC自动将User转换成json格式的字符串
     public void save11(Tbl_User tbl_user) throws IOException {
         System.out.println(tbl_user);
     }
 
-    //获得数组类型参数（存储到对象）
+    //获得数组类型参数
     @RequestMapping(value = "/quick12")
     @ResponseBody  //告诉SpringMVC这是页面回写不是跳转视图
-    //期望SpringMVC自动将User转换成json格式的字符串
     public void save12(String[] strs) throws IOException {
         //Arrays.asList(strs):单纯打印数组会出现地址，这个方法用来打印数组数据
         System.out.println(Arrays.asList(strs));
     }
 
-    //获得集合类型参数（存储到对象）
+    //获得集合类型参数
     @RequestMapping(value = "/quick13")
     @ResponseBody  //告诉SpringMVC这是页面回写不是跳转视图
-    //期望SpringMVC自动将User转换成json格式的字符串
     public void save13(VO vo) throws IOException {
 
         //集合类型数据不能直接为方法参数，要封装到一个类（VO）中
         System.out.println(vo);
     }
 
-    //获得集合类型参数（直接接收集合）
+    //获得集合类型参数（直接接收）
     @RequestMapping(value = "/quick14")
     @ResponseBody  //告诉SpringMVC这是页面回写不是跳转视图
-    //期望SpringMVC自动将User转换成json格式的字符串
     public void save14(@RequestBody List<Tbl_User> tbl_userList) throws IOException {
+        //参数前加@RequestBody是因为前端传的是json格式的集合，要存到对象集合中
 
         //1、前端需要创建集合并用ajax发json格式的集合过来
         //2、需要在方法参数前加上@RequestBody注解
         System.out.println(tbl_userList);
     }
 
+    //处理前端参数与自定义参数名不一致问题
+    @RequestMapping(value = "/quick15")
+    @ResponseBody  //告诉SpringMVC这是页面回写不是跳转视图
+    public void save15(@RequestParam(value = "name",required = false,defaultValue = "itcast") String username) throws IOException {
+
+        //required=false：如果页面没携带name参数也可以访问
+        //defaultValue="itcast"：如果页面没携带参数，就使用默认参数（itcast）
+
+        System.out.println(username);
+    }
+
+    /**
+     * Restful风格的参数（设计模式）：
+     * /user/quick16/1      GET:      得到id=1的user
+     * /user/quick16/1      DELETE:   删除id=1的user
+     * /user/quick16/1      PUT:      更新id=1的user
+     * /user/quick16        POST:     新增user
+     *
+     */
+    @RequestMapping(value = "/quick16/{username}")
+    @ResponseBody  //告诉SpringMVC这是页面回写不是跳转视图
+    public void save16(@PathVariable("username") String username) throws IOException {
+
+        System.out.println(username);
+    }
+
+    //使用自定义转换器实现String转日期对象
+    @RequestMapping(value = "/quick17")
+    @ResponseBody  //告诉SpringMVC这是页面回写不是跳转视图
+    public void save17(Date date) throws IOException {
+
+        System.out.println(date);
+    }
+
+    //获得请求头的参数
+    @RequestMapping(value = "/quick18")
+    @ResponseBody  //告诉SpringMVC这是页面回写不是跳转视图
+    public void save18(@RequestHeader(value = "User-Agent",required = false) String user_agent) throws IOException {
+        //@RequestHeader(value = "User-Agent"：获取请求头中的User-Agent的值
+        //required = false：参数也可以不携带
+        System.out.println(user_agent);
+    }
+
+    //获得请求头的Cookie
+    @RequestMapping(value = "/quick19")
+    @ResponseBody  //告诉SpringMVC这是页面回写不是跳转视图
+    public void save19(@CookieValue(value = "Webstorm-c8fdf2a2",required = false) String Webstorm) throws IOException {
+        //cookie都是键值对，通过键获得相应的值
+        System.out.println(Webstorm);
+    }
+
+    //文件上传
+    @RequestMapping(value = "/quick20")
+    @ResponseBody  //告诉SpringMVC这是页面回写不是跳转视图
+    public void save20(String username, MultipartFile uploadFile) throws IOException {
+        //MultipartFiled的对象名与前端（upload.jsp）file的name名称相同
+        System.out.println(username);
+
+        //获得上传文件的名称
+        String originalFilename = uploadFile.getOriginalFilename();
+
+        //文件上传到服务器的某个磁盘（桌面）
+        uploadFile.transferTo(new File("D:\\桌面\\"+originalFilename));
+    }
+
+    @RequestMapping(value = "/quick21")
+    @ResponseBody  //告诉SpringMVC这是页面回写不是跳转视图
+    public void save21(String username, MultipartFile[] uploadFile) throws IOException {
+        //MultipartFiled的对象名与前端（upload.jsp）file的name名称相同
+        System.out.println(username);
+
+        //遍历上传的多个文件
+        for (MultipartFile file:uploadFile) {
+            //获得上传文件的名称
+            String originalFilename = file.getOriginalFilename();
+            //文件上传到服务器的某个磁盘（桌面）
+            file.transferTo(new File("D:\\桌面\\"+originalFilename));
+        }
+
+    }
 }
