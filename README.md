@@ -330,4 +330,15 @@ bean属性
         导入fileupload和io坐标
         配置文件上传解析器
         编写文件上传代码
-     
+8、SpringMVC拦截器
+----
+    1.拦截器与过滤器区别
+        拦截器（interceptor）与过滤器（filter）不同，拦截器是SpringMVC的，只会对控制器方法进行拦截，不会拦截jsp、HTML、js等静态资源
+    
+    2.自定义拦截器步骤
+        创建拦截器类实现HandlerInterceptor接口
+        配置拦截器
+        测试拦截器的拦截效果
+
+    
+    

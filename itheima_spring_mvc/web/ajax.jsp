@@ -9,7 +9,7 @@
 </body>
 <script>
     var tbl_userList = new Array();
-    tbl_userList.push({username:"zhangsan",passwold:"12345"});
+    tbl_userList.push({username:"张三",passwold:"12345"});
     tbl_userList.push({username:"lisi",passwold:"67890"});
 
 
