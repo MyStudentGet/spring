@@ -28,5 +28,18 @@
     <!--4、的组件扫描、扫描Controller-->
     <context:component-scan base-package="com.itheima.controller"/>
 
+    <!--配置拦截器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!--对哪些资源进行拦截操作（/**:所有资源）-->
+            <mvc:mapping path="/**"/>
+            <bean class="com.itheima.interceptor.MyInterceptor1"/>
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <!--对哪些资源进行拦截操作（/**:所有资源）-->
+            <mvc:mapping path="/**"/>
+            <bean class="com.itheima.interceptor.MyInterceptor2"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 
 </beans>
