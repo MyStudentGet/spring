@@ -10,7 +10,6 @@ public class MyInterceptor1 implements HandlerInterceptor {
     //接口内部方法都用default修饰（有方法体），需要手动覆盖重要方法
 
     //在目标方法执行之前执行（前端控制器（TargerController）方法执行之前）
-
     /**
      * 如果如果参数param为yes就放行否则就转发到error.jsp
      */

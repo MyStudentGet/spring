@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="itheima_spring_test:war">
+    <output-path>$PROJECT_DIR$/itheima_spring_test/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>itheima_spring_test</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="itheima_spring_test-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="itheima_spring_test:war exploded" />
+    </root>
+  </artifact>
+</component>

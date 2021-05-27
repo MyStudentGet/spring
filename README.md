@@ -297,6 +297,7 @@ bean属性
 4、SpringMVC注解解析
 ----   
     @RequestMapping(类标签/方法标签)       设置映射地址（属性有value、method、params）
+    @RequestBody(参数标签)                如果json参数放在请求体中，传入后台的话，那么后台要用@RequestBody才能接收到
     @ResponseBody(方法标签)               页面不进行视图跳转，直接进行数据响应（Http方式响应）
     @RequestParam(参数标签)               页面传过来的数据和表中哪个字段匹配（id和tbl_userId）            
     @RequestHeader(参数标签（参数名）)      获得请求头的某一参数           
@@ -344,4 +345,18 @@ bean属性
         preHandle：          执行目标方法（前端控制器方法）之前执行     （return 决定放行还是不放行（不放行一般会用转发））       重点
         postHandle：         执行目标方法后，返回视图前（用于修改视图）
         afterCompletion：    所有流程执行完后执行
+   
+九、Spring练习环境搭建
+====
+1、Spring环境搭建步骤
+----
+    1）创建工程(Project&Module)
+    2）导入静态页面(见资料jsp页面)
+    3）导入需要坐标(见资料中的pom.xml)
+    4）创建包结构(controller、service.dao、domain.utils)
+    5）导入数据库脚本(见资料testsql)
+    6）创建POJO类(见资料User.java和Role.java)
+    7）创建配置文件(applicationContext.xml spring-mvc.xml.jdbc.properties、log4j.properties)
+     
+    
     

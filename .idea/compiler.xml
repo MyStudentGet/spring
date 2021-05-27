@@ -12,6 +12,7 @@
         <module name="itheima_spring_interceptor" />
         <module name="itheima_spring_jdbc" />
         <module name="itheima_spring_aop" />
+        <module name="itheima_spring_test" />
         <module name="itheima_sping_anno" />
         <module name="itheima_spring_tx_anno" />
       </profile>
@@ -23,6 +24,7 @@
       <module name="itheima_spring_ioc" target="1.5" />
       <module name="itheima_spring_jdbc" target="1.5" />
       <module name="itheima_spring_mvc" target="1.5" />
+      <module name="itheima_spring_test" target="1.5" />
       <module name="itheima_spring_tx" target="1.5" />
       <module name="itheima_spring_tx_anno" target="1.5" />
     </bytecodeTargetLevel>

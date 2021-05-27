@@ -222,7 +222,7 @@ public class UserController {
      * /user/quick16        POST:     新增user
      *
      */
-    @RequestMapping(value = "/quick16/{username}")
+    @RequestMapping(value = "/quick16/{username}",method = RequestMethod.GET)
     @ResponseBody  //告诉SpringMVC这是页面回写不是跳转视图
     public void save16(@PathVariable("username") String username) throws IOException {
 

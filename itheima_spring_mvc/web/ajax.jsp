@@ -20,7 +20,7 @@
         contentType:"application/json;charset=utf-8"
 
     });
-    console.log("2");
+    console.log("成功");
 
 </script>
 </html>

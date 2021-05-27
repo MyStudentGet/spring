@@ -8,6 +8,7 @@
       <module fileurl="file://$PROJECT_DIR$/itheima_spring_ioc/itheima_spring_ioc.iml" filepath="$PROJECT_DIR$/itheima_spring_ioc/itheima_spring_ioc.iml" />
       <module fileurl="file://$PROJECT_DIR$/itheima_spring_jdbc/itheima_spring_jdbc.iml" filepath="$PROJECT_DIR$/itheima_spring_jdbc/itheima_spring_jdbc.iml" />
       <module fileurl="file://$PROJECT_DIR$/itheima_spring_mvc/itheima_spring_mvc.iml" filepath="$PROJECT_DIR$/itheima_spring_mvc/itheima_spring_mvc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/itheima_spring_test/itheima_spring_test.iml" filepath="$PROJECT_DIR$/itheima_spring_test/itheima_spring_test.iml" />
       <module fileurl="file://$PROJECT_DIR$/itheima_spring_tx/itheima_spring_tx.iml" filepath="$PROJECT_DIR$/itheima_spring_tx/itheima_spring_tx.iml" />
       <module fileurl="file://$PROJECT_DIR$/itheima_spring_tx_anno/itheima_spring_tx_anno.iml" filepath="$PROJECT_DIR$/itheima_spring_tx_anno/itheima_spring_tx_anno.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/spring.iml" filepath="$PROJECT_DIR$/.idea/spring.iml" />

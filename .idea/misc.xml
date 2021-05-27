@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/itheima_spring_test" />
+  </component>
   <component name="JavaScriptSettings">
     <option name="languageLevel" value="ES6" />
   </component>
@@ -14,6 +17,7 @@
         <option value="$PROJECT_DIR$/itheima_spring_tx_anno/pom.xml" />
         <option value="$PROJECT_DIR$/itheima_spring_mvc/pom.xml" />
         <option value="$PROJECT_DIR$/itheima_spring_interceptor/pom.xml" />
+        <option value="$PROJECT_DIR$/itheima_spring_test/pom.xml" />
       </list>
     </option>
   </component>

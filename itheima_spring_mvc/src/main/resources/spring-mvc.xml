@@ -30,7 +30,7 @@
 <!--        </property>-->
 <!--    </bean>-->
 
-    <!--mvc的注解驱动(可代替上面)-->
+    <!--mvc的注解驱动(不止可以代替上面)-->
     <!--默认底层会集成jsckson进行对象或集合的json格式转换（要在头部加载）-->
     <mvc:annotation-driven conversion-service="conversionService"/>
 
