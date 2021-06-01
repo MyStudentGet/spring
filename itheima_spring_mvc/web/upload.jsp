@@ -17,7 +17,7 @@
         名称：<input type="text" name="username"><br/>
         文件1：<input type="file" name="uploadFile"><br/>
         文件2：<input type="file" name="uploadFile"><br/>
-        <input type="submit" value="提交">
+        <input type="submit" value="提交">镜像
     </form>
 </body>
 </html>
