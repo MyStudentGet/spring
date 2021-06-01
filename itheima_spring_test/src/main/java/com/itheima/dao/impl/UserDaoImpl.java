@@ -69,4 +69,14 @@ public class UserDaoImpl implements UserDao {
             jdbcTemplate.update("insert into sys_user_role values(?,?)",userId,roleId);
         }
     }
+
+    //删除指定id的关系表信息
+    public void delUserRoleRel(Long userId) {
+        jdbcTemplate.update("delete from sys_user_role where userId=?",userId);
+    }
+
+    //删除指定id的用户信息
+    public void del(Long userId) {
+        jdbcTemplate.update("delete from sys_user where id=?",userId);
+    }
 }

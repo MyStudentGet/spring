@@ -6,6 +6,7 @@ import com.itheima.service.RoleService;
 import com.itheima.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -54,6 +55,17 @@ public class UserController {
         List<Role> roleList = roleService.list();
         modelAndView.addObject("roleList",roleList);
         modelAndView.setViewName("user-add");
+
+        return "redirect:/user/list";
+    }
+
+    //得到表单传过来的值删除用户
+    //Restful风格的参数（设计模式）要使用注解@PathVariable接收参数
+    @RequestMapping("/del/{userId}")
+    public String del(@PathVariable("userId") Long userId){
+
+        userService.del(userId);
+
 
         return "redirect:/user/list";
     }
