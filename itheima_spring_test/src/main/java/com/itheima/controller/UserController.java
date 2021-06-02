@@ -6,10 +6,12 @@ import com.itheima.service.RoleService;
 import com.itheima.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.HttpSessionRequiredException;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -68,5 +70,22 @@ public class UserController {
 
 
         return "redirect:/user/list";
+    }
+
+    //得到表单传过来的值删除用户
+
+    @RequestMapping("/login")
+    public String login(String username, String password, HttpSession session){
+
+        //查询指定name和password的user对象
+        User user = userService.login(username,password);
+        if (user!=null){
+            //登录成功  将user存储到session
+            session.setAttribute("user",user);
+            //重定向到主页
+            return "redirect:/index.jsp";
+        }
+
+        return "redirect:/login.jsp";
     }
 }

@@ -6,6 +6,7 @@ import com.itheima.domain.Role;
 import com.itheima.domain.User;
 import com.itheima.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -55,5 +56,17 @@ public class UserServiceImpl implements UserService {
 
         //2、删除用户表（sys_user）
         userDao.del(userId);
+    }
+
+    //查询指定username和password的用户
+    public User login(String username, String password) {
+        //查不到数据会抛异常
+        try {//没抛异常就正常返回，否则返回null
+            User user = userDao.findByUsernameAndPassword(username,password);
+            return user;
+        }catch (EmptyResultDataAccessException e){
+            return null;
+        }
+
     }
 }

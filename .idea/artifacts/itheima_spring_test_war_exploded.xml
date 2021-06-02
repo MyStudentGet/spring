@@ -41,9 +41,6 @@
           <element id="library" level="project" name="Maven: jstl:jstl:1.2" />
         </element>
       </element>
-      <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/itheima_spring_test/target/itheima_spring_test-1.0-SNAPSHOT/META-INF/MANIFEST.MF" />
-      </element>
       <element id="javaee-facet-resources" facet="itheima_spring_test/web/Web" />
     </root>
   </artifact>

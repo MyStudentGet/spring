@@ -33,7 +33,7 @@
 		<div class="login-box-body">
 			<p class="login-box-msg">登录系统</p>
 
-			<form action="${pageContext.request.contextPath}/pages/main.jsp"
+			<form action="${pageContext.request.contextPath}/user/login"
 				method="post">
 				<div class="form-group has-feedback">
 					<input type="text" name="username" class="form-control"

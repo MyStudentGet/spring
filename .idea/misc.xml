@@ -18,6 +18,7 @@
         <option value="$PROJECT_DIR$/itheima_spring_mvc/pom.xml" />
         <option value="$PROJECT_DIR$/itheima_spring_interceptor/pom.xml" />
         <option value="$PROJECT_DIR$/itheima_spring_test/pom.xml" />
+        <option value="$PROJECT_DIR$/itheima_spring_exception/pom.xml" />
       </list>
     </option>
   </component>

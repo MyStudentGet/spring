@@ -3,6 +3,7 @@ package com.itheima.dao.impl;
 import com.itheima.dao.UserDao;
 import com.itheima.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -78,5 +79,11 @@ public class UserDaoImpl implements UserDao {
     //删除指定id的用户信息
     public void del(Long userId) {
         jdbcTemplate.update("delete from sys_user where id=?",userId);
+    }
+
+    //根据指定username和password查询用户
+    public User findByUsernameAndPassword(String username, String password) throws EmptyResultDataAccessException {
+        User user = jdbcTemplate.queryForObject("select * from sys_user where username=? and password=?", new BeanPropertyRowMapper<User>(User.class), username, password);
+        return user;
     }
 }

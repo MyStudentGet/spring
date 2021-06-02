@@ -11,6 +11,7 @@
         <module name="itheima_spring_mvc" />
         <module name="itheima_spring_interceptor" />
         <module name="itheima_spring_jdbc" />
+        <module name="itheima_spring_exception" />
         <module name="itheima_spring_aop" />
         <module name="itheima_spring_test" />
         <module name="itheima_sping_anno" />
@@ -20,6 +21,7 @@
     <bytecodeTargetLevel>
       <module name="itheima_sping_anno" target="1.5" />
       <module name="itheima_spring_aop" target="1.5" />
+      <module name="itheima_spring_exception" target="1.5" />
       <module name="itheima_spring_interceptor" target="1.5" />
       <module name="itheima_spring_ioc" target="1.5" />
       <module name="itheima_spring_jdbc" target="1.5" />
