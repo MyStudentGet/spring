@@ -15,9 +15,6 @@
     <!--2、配置内部资源视图解析器-->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 
-        <!--配置前缀（处理器return时会加上前缀后缀）-->
-        <property name="prefix" value="/pages/"/>
-
         <!--配置后缀-->
         <property name="suffix" value=".jsp"/>
     </bean>
@@ -28,5 +25,21 @@
     <!--4、Controller的组件扫描-->
     <context:component-scan base-package="com.itheima.controller"/>
 
+    <!--5、异常处理器-->
+<!--    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">-->
+<!--        &lt;!&ndash;默认的错误处理页面（如果下面都解决不了就跳转到这里）&ndash;&gt;-->
+<!--        <property name="defaultErrorView" value="error"/>-->
+<!--        <property name="exceptionMappings">-->
+<!--            <map>-->
+<!--                &lt;!&ndash;类型转换异常&ndash;&gt;-->
+<!--                <entry key="java.lang.ClassCastException" value="error1"/>-->
+<!--                &lt;!&ndash;自定义异常&ndash;&gt;-->
+<!--                <entry key="com.itheima.exception.MyException" value="error2"/>-->
+<!--            </map>-->
+<!--        </property>-->
+<!--    </bean>-->
+
+    <!--自定义异常处理器-->
+    <bean class="com.itheima.resolver.MyExceptionResolver"/>
 
 </beans>

@@ -362,7 +362,23 @@ bean属性
 ====
 1、思路
 ----
-    系统的Dao、Service、Controller出现的异常都向上抛出，最后由SpringMVC前端控制器交由异常处理器（HandlerExceptionResolver）进行统一处理
+    系统的Dao、Service、Controller出现的异常都向上抛出，最后由SpringMVC前端控制器交由异常处理器（SimpleMappingExceptionResolver）进行统一处理
+
+2、方法
+----
+    1）SpringMVC提供的简单异常处理器（SimpleMappingExceptionResolver）
+    2）实现Spring的异常处理接口（HandlerExceptionResolver）定义自己的异常处理器
+    
+3、自定义异常处理步骤：
+----
+    1）创建异常处理器类实现HandlerExceptionResolver接口
+    2）配置异常处理器    
+    3）编写异常页面
+    4）测试异常跳转
+    
+    
+    
+    
     
 总结
 ====
@@ -370,7 +386,7 @@ bean属性
 ----
     _anno       ：数据库的不同连接方式、新注解（代替xml文件）、Spring注解的使用
     _aop        ：基于cglib或jdbc的代理方式区别、注解或配置xml实现增强方法
-    _exception  ：
+    _exception  ：使用SpringMVC集中处理异常、自定义异常处理器
     _interceptor：拦截器的使用
     _ioc        ：getBean的两种方法（用id、用类型）、各种创建bean方式以及导入其他分配置文件方法
     _jdbc       ：用jdbc模板进行简单的增删改查操作、配置xml和原始方式的比较
@@ -389,7 +405,7 @@ bean属性
     
     配置文件：
     applicationContext.xml ：存储Dao层、Domain层、Service层对象、平台事务管理器
-    spring-mvc.xml         ：存储Controller对象、MVC驱动（json格式转换）、视图解析器、开放静态资源的访问、拦截器、上传文件解析器
+    spring-mvc.xml         ：存储Controller对象、MVC驱动（json格式转换）、视图解析器、开放静态资源的访问、拦截器、上传文件解析器、异常处理器
     jdbc.properties        ：存储连接数据库的相关信息（用户名、密码、驱动、地址、最大连接数等）
     web.xml                ：全局初始化参数（导入spring配置文件）、配置全局过滤的filter（post方式发送的数据会乱码）、Spring的监听器、MVC的前端控制器（加载Spring-mvc的配置文件）
     
