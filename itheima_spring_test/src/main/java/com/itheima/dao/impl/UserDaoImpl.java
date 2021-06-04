@@ -2,6 +2,9 @@ package com.itheima.dao.impl;
 
 import com.itheima.dao.UserDao;
 import com.itheima.domain.User;
+import com.itheima.utils.MybatisUtils;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -10,10 +13,13 @@ import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class UserDaoImpl implements UserDao {
@@ -21,16 +27,18 @@ public class UserDaoImpl implements UserDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public List<User> findAll() {
+    @Autowired
+    private SqlSession sqlSession;
+
+    //查询所有用户信息
+    public List<User> findAll() throws IOException {
         //new BeanPropertyRowMapper：将数据库查询结果转换为java对象
+
+        //mybatis方式
+//        List<User> query = sqlSession.selectList("userMapper.findAll");
+
+        //jdbc模板方式
         List<User> query = jdbcTemplate.query("select * from sys_user", new BeanPropertyRowMapper<User>(User.class));
-//        List<User> query = jdbcTemplate.query(
-//                "select u.*,r.roleName from sys_user u\n" +
-//                        "join sys_user_role ur\n" +
-//                        "on u.id=ur.userId\n" +
-//                        "join sys_role r\n" +
-//                        "on ur.roleId=r.id",
-//                new BeanPropertyRowMapper<User>(User.class));
         return query;
     }
 
@@ -66,8 +74,13 @@ public class UserDaoImpl implements UserDao {
 
     //给关系表添加数据（和上面一起用）
     public void saveUserRoleRel(Long userId, Long[] roleIds) {
+
         for (Long roleId:roleIds) {
             jdbcTemplate.update("insert into sys_user_role values(?,?)",userId,roleId);
+//            Map<String,Object> map = new HashMap<String, Object>();
+//            map.put("userId",userId);
+//            map.put("roleId",roleId);
+//            sqlSession.insert("userMapper.saveUserRoleRel",map);
         }
     }
 

@@ -39,4 +39,16 @@
         </mvc:interceptor>
     </mvc:interceptors>
 
+<!--    5、异常处理器-->
+    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <!--默认的错误处理页面（如果下面都解决不了就跳转到这里）-->
+        <property name="defaultErrorView" value="404"/>
+        <property name="exceptionMappings">
+            <map>
+                <!--类型转换异常-->
+                <entry key="java.lang.ClassCastException" value="404"/>
+            </map>
+        </property>
+    </bean>
+
 </beans>
