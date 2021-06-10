@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -21,7 +22,7 @@ public class UserServiceImpl implements UserService {
     private RoleDao roleDao;
 
     //查询所有用户的信息及其相应的角色信息
-    public List<User> list() {
+    public List<User> list() throws IOException {
         //1、直接多表联查
 //        List<User> userList = userDao.findAll();
         //2、两张表分开查

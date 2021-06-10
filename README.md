@@ -362,38 +362,75 @@ bean属性
 ====
 1、思路
 ----
-    系统的Dao、Service、Controller出现的异常都向上抛出，最后由SpringMVC前端控制器交由异常处理器（HandlerExceptionResolver）进行统一处理
+    系统的Dao、Service、Controller出现的异常都向上抛出，最后由SpringMVC前端控制器交由异常处理器（SimpleMappingExceptionResolver）进行统一处理
+
+2、方法
+----
+    1）SpringMVC提供的简单异常处理器（SimpleMappingExceptionResolver）
+    2）实现Spring的异常处理接口（HandlerExceptionResolver）定义自己的异常处理器
+    
+3、自定义异常处理步骤：
+----
+    1）创建异常处理器类实现HandlerExceptionResolver接口
+    2）配置异常处理器    
+    3）编写异常页面
+    4）测试异常跳转
+    
+    
+    
+    
     
 总结
 ====
 1、模块的技术及其作用：
 ----
+    _test       ：简单的MVC项目（操作之前要先登录（user表有用户）、对用户的增加和删除、对角色的增加和删除）、三张表的增删改查、MVC配置文件的配置
     _anno       ：数据库的不同连接方式、新注解（代替xml文件）、Spring注解的使用
     _aop        ：基于cglib或jdbc的代理方式区别、注解或配置xml实现增强方法
-    _exception  ：
+    _exception  ：使用SpringMVC集中处理异常、自定义异常处理器
     _interceptor：拦截器的使用
     _ioc        ：getBean的两种方法（用id、用类型）、各种创建bean方式以及导入其他分配置文件方法
     _jdbc       ：用jdbc模板进行简单的增删改查操作、配置xml和原始方式的比较
-    _mvc        ：spring-mvc配置文件的基本配置、各种回写信息与跳转页面的方式、获得Restful风格参数、获得请求头信息、文件上传
-    _test       ：简单的MVC项目（操作之前要先登录（user表有用户）、对用户的增加和删除、对角色的增加和删除）、三张表的增删改查、MVC配置文件的配置
+    _mvc        ：spring-mvc配置文件的基本配置、各种回写信息与跳转页面的方式、获得Restful风格参数、获得请求头信息、文件上传与下载
     _tx         ：事务控制的基础操作、事务增强
     _tx_anno    ：两用户转账（实现事务回滚操作（异常事务回滚））
     
 2、业务流程
 ----
     java代码：
-    Dao层                   ：存储最基本的对数据库进行修改的SQL语句
-    Domain层                ：存储bean类（数据表类）
-    service层               ：调用Dao层的方法实现功能操作
+    Dao层                   ：存储最基本的对数据库进行修改的SQL语句(可以只定义接口，让mybatis实现具体方法)
+    Domain/po层             ：存储bean类（数据表类）
+    service层               ：调用Dao层的方法实现功能操作(用@Transactional标识方法进行事务控制)
     controller层(web层)     ：与前端进行交互(得到数据、回显数据、跳转页面)并调用service层的方法实现相应功能
     
     配置文件：
     applicationContext.xml ：存储Dao层、Domain层、Service层对象、平台事务管理器
-    spring-mvc.xml         ：存储Controller对象、MVC驱动（json格式转换）、视图解析器、开放静态资源的访问、拦截器、上传文件解析器
+    spring-mvc.xml         ：存储Controller对象、MVC驱动（json格式转换）、视图解析器、开放静态资源的访问、拦截器、上传文件解析器、异常处理器
     jdbc.properties        ：存储连接数据库的相关信息（用户名、密码、驱动、地址、最大连接数等）
     web.xml                ：全局初始化参数（导入spring配置文件）、配置全局过滤的filter（post方式发送的数据会乱码）、Spring的监听器、MVC的前端控制器（加载Spring-mvc的配置文件）
     
-    
+3、整合时需要的包
+----
+    spring相关坐标：
+        spring-context（上下文）
+        aspect-jweaver（aop织入）
+        spring-jdbc（jdbc模板）
+        spring-tx（事务）
+        spring-test（测试）
+        spring-webmvc（springmvc）
+    servlet与jsp相关坐标：
+        select-api
+        jsp-api
+    mybatis相关坐标：
+        mybatis
+        mybatis-spring（mybatis整合Spring的包）
+        mysql-connector-java（数据库连接包）
+        c3p0（数据源）
+    其他：
+        Junit（测试）
+        jstl
+        
+        
     
     
     

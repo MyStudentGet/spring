@@ -2,11 +2,13 @@ package com.itheima.service.impl;
 
 import com.itheima.exception.MyException;
 import com.itheima.service.DemoService;
+import org.springframework.stereotype.Service;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+@Service
 public class DemoServiceImpl implements DemoService {
 
     public void show1() {
