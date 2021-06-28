@@ -190,7 +190,7 @@ bean属性
         PlatformTransactionManager
     
     事务定义对象:TransactionDefinition
-        int getIsolationLevel()         获得事务的隔离级别（可以解决 脏读（_READ_UNCOMMITTED）、不可重复读（_COMMITTED）、虚读（幻读）（）（SERIALIZABLE））（ISOLATION_REPEATABLE_READ，能解决所有问题单性能很低）
+        int getIsolationLevel()         获得事务的隔离级别（可以解决 脏读（_READ_UNCOMMITTED）、不可重复读（_COMMITTED）、虚读（幻读）（SERIALIZABLE））（ISOLATION_REPEATABLE_READ，能解决所有问题单性能很低）
         int getPropogationBehavior()    获得事务的传播行为（处理方法互相调用时要不要重新创建事务）（REQUIRED:没有事务就新建一个，有事务就加入到这个事务中去 ， SUPPORTS:支持当前事务，如果没有事务就以非事务方式执行）
         int getTimeout()                获得超时时间（默认值是-1，没有超时限制）
         boolean isReadOnly()            是否只读（建议查询时设置只读）
