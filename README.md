@@ -16,7 +16,7 @@ bean属性
 二、Spring注解
 ====
 1、实例化bean
-----
+---- 
     @Component：使用在类上实例化bean
     @Controller：使用在web层上，实例化Bean
     @Service：使用在service层上，实例化Bean
