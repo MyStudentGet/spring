@@ -30,7 +30,7 @@
 
 <!--    配置组件扫描-->
     <context:component-scan base-package="com.itheima"/>
-
+    <context:component-scan base-package="zhuding"/>
 
 
 

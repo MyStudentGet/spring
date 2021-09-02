@@ -27,7 +27,7 @@ public class MyAspect {
     }
 
     // 异常抛出增强
-    public void afterThrowing(){
+    public void afterThrowing(Exception e){
         System.out.println("异常抛出增强。。。。。。");
     }
 
